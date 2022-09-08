@@ -29,6 +29,7 @@ public class WayPointMovement : MonoBehaviour
             _target = _points[_currentPoint];
 
             transform.position = Vector3.MoveTowards(transform.position, _target.position, _enemy.Speed * Time.deltaTime);
+            transform.LookAt(_target.position);
 
             if (transform.position == _target.position)
             {

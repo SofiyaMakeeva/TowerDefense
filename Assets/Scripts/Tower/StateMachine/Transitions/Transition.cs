@@ -7,21 +7,15 @@ public abstract class Transition : MonoBehaviour
 {
     [SerializeField] private State _targetState;
 
-    protected Enemy Target { get; set; }
-    protected Collider Collider { get; private set; }
+    protected GameObject Target { get; set; }
 
     public State TargetState => _targetState;
 
     public bool NeedTransit { get; protected set; }
 
-    //public void Init(Enemy target)
-    //{
-    //    Target = target;
-    //}
-
-    public void Init(Collider collider)
+    public void Init(GameObject target)
     {
-        Collider = collider;
+        Target = target;
     }
 
     private void OnEnable()

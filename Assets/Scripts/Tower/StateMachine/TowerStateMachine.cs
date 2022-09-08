@@ -7,17 +7,16 @@ public class TowerStateMachine : MonoBehaviour
 {
     [SerializeField] private State _firstState;
 
-    private Collider _collider;
-    private Enemy _target;
+    private GameObject _target;
     private State _currentState;
     private State _nextState;
+    private Tower _tower;
 
     public State CurrentState => _currentState;
 
-    private void Start()
+    private void Awake()
     {
-        _collider = GetComponent<Collider>();
-        //_target = GetComponent<Tower>().Enemy;
+        _tower = GetComponent<Tower>();
         Reset(_firstState);
     }
 
@@ -33,7 +32,7 @@ public class TowerStateMachine : MonoBehaviour
         if (_nextState != null)
         {
             Transit(_nextState);
-        }
+        } 
     }
 
     private void Reset(State startState)
@@ -42,8 +41,7 @@ public class TowerStateMachine : MonoBehaviour
 
         if (_currentState != null)
         {
-            //_currentState.Enter(_target);
-            _currentState.Enter(_collider);
+            _currentState.Enter(_target);
         }
     }
 
@@ -58,8 +56,7 @@ public class TowerStateMachine : MonoBehaviour
 
         if (_currentState != null)
         {
-            //_currentState.Enter(_target);
-            _currentState.Enter(_collider);
+            _currentState.Enter(_target);
         }
     }
 }

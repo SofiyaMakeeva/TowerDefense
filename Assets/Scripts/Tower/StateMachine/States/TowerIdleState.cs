@@ -4,16 +4,8 @@ using UnityEngine;
 
 public class TowerIdleState : State
 {
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.TryGetComponent(out Enemy enemy))
-        {
-            if (Target != null)
-            {
-                return;
-            }
-
-            Target = enemy;
-        }
+        
     }
 }

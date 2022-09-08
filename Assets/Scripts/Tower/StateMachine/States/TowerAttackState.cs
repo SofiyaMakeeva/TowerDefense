@@ -5,31 +5,23 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class TowerAttackState : State
 {
-    [SerializeField] private int _damage;
-    [SerializeField] private float _delay;
+    [SerializeField] private float _fireRate = 1;
 
-    private float _lastAttackTime;
-    private Animator _animator;
-
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
-    }
+    private float _fireCountdown = 0;
 
     private void Update()
     {
-        if (_lastAttackTime <= 0)
+        if (_fireCountdown <= 0)
         {
-            Attack(Target);
-            _lastAttackTime = _delay;
+            Shoot();
+            _fireCountdown = 1f / _fireRate;
         }
 
-        _lastAttackTime -= Time.deltaTime;
+        _fireCountdown -= Time.deltaTime;
     }
 
-    private void Attack(Enemy target)
+    private void Shoot()
     {
-        Debug.Log("Attack");
-        //target.TakeDamage(_damage);
+        Debug.Log("Shoot");
     }
 }

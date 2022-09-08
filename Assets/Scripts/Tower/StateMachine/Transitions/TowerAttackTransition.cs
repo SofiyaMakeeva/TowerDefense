@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class TowerAttackTransition : Transition
 {
-    //private void Update()
-    //{
-    //    if (Target == null)
-    //    {
-    //        NeedTransit = true;
-    //    }
-    //}
-
-    private void OnTriggerExit(Collider other)
+    private void Update()
     {
-        Target = null;
-        NeedTransit = true;
+        if (Target == null)
+        {
+            NeedTransit = true;
+        }
     }
 }
