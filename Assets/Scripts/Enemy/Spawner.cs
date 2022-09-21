@@ -7,7 +7,6 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private List<Wave> _waves;
     [SerializeField] private Transform _spawnPosition;
-    [SerializeField] private Player _player;
     [SerializeField] private Transform _path;
 
     private Wave _currentWave;
@@ -36,10 +35,18 @@ public class Spawner : MonoBehaviour
 
         if (_currentWave.Count <= _spawned)
         {
-            if (_waves.Count > _currentWaveNumber+1)
+            if (_waves.Count > _currentWaveNumber + 1)
             {
                 AllEnemySpawned?.Invoke();
             }
+            else if (_waves.Count == _currentWaveNumber + 1 && _currentWave.Count == _spawned)
+            {
+                if (_enemy.IslastEnemy == false)
+                {
+                    _enemy.OnLastEnemySpawn();
+                } 
+            }
+
             _currentWave = null;
         }
     }
@@ -50,16 +57,9 @@ public class Spawner : MonoBehaviour
         _spawned = 0;
     }
 
-    //private void OnEnemyDying(Enemy enemy)
-    //{
-    //    enemy.Dying -= OnEnemyDying;
-    //    _player.AddMoney(enemy.Reward);
-    //}
-
     private void InstantiateEnemy()
     {
         _enemy = Instantiate(_currentWave.Template, _spawnPosition.position, _spawnPosition.rotation, _spawnPosition).GetComponent<Enemy>();
-        //_enemy.Dying += OnEnemyDying;
     }
 
     private void SetWave(int index)

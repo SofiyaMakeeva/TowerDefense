@@ -9,14 +9,20 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _reward;
     [SerializeField] private float _speed;
     [SerializeField] private float _damage;
-    [SerializeField] private int _experience;
+
+    private bool _isLastEnemy = false;
+    private Player _player;
+    private GameOverScreen _gameOverScreen;
 
     public float Damage => _damage;
-    public int Experience => _experience;
     public float Speed => _speed;
-    public int Reward => _reward;
+    public bool IslastEnemy => _isLastEnemy;
 
-    public event UnityAction<Enemy> Dying;
+    private void Start()
+    {
+        _player = FindObjectOfType<Player>();
+        _gameOverScreen = FindObjectOfType<GameOverScreen>();
+    }
 
     public void TakeDamage(int damage)
     {
@@ -24,8 +30,19 @@ public class Enemy : MonoBehaviour
 
         if (_health <= 0)
         {
-            //Dying?.Invoke(this);
+            _player.ChangeMoneyValue(_reward);
+
+            if (_isLastEnemy == true)
+            {
+                _gameOverScreen.Open();
+            }
+
             Destroy(gameObject);
         }
+    }
+
+    public void OnLastEnemySpawn()
+    {
+        _isLastEnemy = true;
     }
 }

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BuildManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _towerPrefab;
+    [SerializeField] private GameObject _towerToBuild;
 
     public static BuildManager Instance;
 
-    private GameObject _towerToBuild;
+    public GameObject TowerToBuild => _towerToBuild;
 
     private void Awake()
     {
@@ -21,13 +21,18 @@ public class BuildManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    public void InstallTower(GameObject tower)
     {
-        _towerToBuild = _towerPrefab;
+        _towerToBuild = tower;
     }
 
     public GameObject GetTowerToBuild()
     {
         return _towerToBuild;
+    }
+
+    public void RemoveTower()
+    {
+        _towerToBuild = null;
     }
 }

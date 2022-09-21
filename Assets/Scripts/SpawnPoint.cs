@@ -26,9 +26,18 @@ public class SpawnPoint : MonoBehaviour
             Debug.Log("Cant build there");
             return;
         }
+        
 
         _towerToBuild = BuildManager.Instance.GetTowerToBuild();
+
+        if (_towerToBuild == null)
+        {
+            Debug.Log("No tower to build");
+            return;
+        }
+
         _tower = Instantiate(_towerToBuild, transform.position + _positionOffset, Quaternion.identity);
+        BuildManager.Instance.RemoveTower();
     }
 
     private void OnMouseEnter()

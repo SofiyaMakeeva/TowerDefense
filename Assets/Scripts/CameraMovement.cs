@@ -5,6 +5,17 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private int _speed;
+    [SerializeField] private float _maxHeight;
+    [SerializeField] private float _minHeight;
+
+    private float _height;
+    private float _tempHeight;
+
+    private void Start()
+    {
+        _height = _maxHeight;
+        _tempHeight = _height;
+    }
 
     private void Update()
     {
@@ -28,17 +39,23 @@ public class CameraMovement : MonoBehaviour
             transform.Translate(1 * _speed * Time.deltaTime, 0, 0);
         }
 
-        //if (Input.GetAxis("Mouse ScrollWheel") < 0)
-        //{
-        //    if (height < maxHeight) tmpHeight += 1;
-        //}
-        //if (Input.GetAxis("Mouse ScrollWheel") > 0)
-        //{
-        //    if (height > minHeight) tmpHeight -= 1;
-        //}
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            if (_height < _maxHeight)
+            {
+                _tempHeight++;
+            }
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            if (_height > _minHeight)
+            {
+                _tempHeight--;
+            }
+        }
 
-        //tmpHeight = Mathf.Clamp(tmpHeight, minHeight, maxHeight);
-        //height = Mathf.Lerp(height, tmpHeight, 3 * Time.deltaTime);
-        //transform.position = new Vector3(transform.position.x, height, transform.position.z);
+        _tempHeight = Mathf.Clamp(_tempHeight, _minHeight, _maxHeight);
+        _height = Mathf.MoveTowards(_height, _tempHeight, _speed * Time.deltaTime);
+        transform.position = new Vector3(transform.position.x, _height, transform.position.z);
     }
 }
