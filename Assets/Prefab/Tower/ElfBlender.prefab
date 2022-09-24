@@ -111,7 +111,7 @@ MonoBehaviour:
   _partToRotate: {fileID: 732751907931605225}
   _turnSpeed: 10
   _fireRate: 1
-  _bulletPrefab: {fileID: 1050900980888874315, guid: 21f6e144de2b7bd4da77eb2c09d740af, type: 3}
+  _bulletPrefab: {fileID: 7920935636814916273, guid: 6d4d1b1647036e14db64bbb89927d81e, type: 3}
   _firePoint: {fileID: 982339453767141521}
   _offset: {x: 0, y: 0, z: 0}
   _price: 30

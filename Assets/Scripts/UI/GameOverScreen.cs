@@ -21,11 +21,6 @@ public class GameOverScreen : Screen
         CanvasGroup.blocksRaycasts = true;
     }
 
-    protected override void OnAudioButtonClick()
-    {
-        Debug.Log("Audio will be soon");
-    }
-
     protected override void OnEXitButtonClick()
     {
         Application.Quit();

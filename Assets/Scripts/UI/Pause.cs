@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Pause : MonoBehaviour
 {
     [SerializeField] private Button _pauseButton;
+    [SerializeField] private ContineScreen _contineScreen;
 
     private void OnEnable()
     {
@@ -19,13 +20,6 @@ public class Pause : MonoBehaviour
 
     private void OnButtonClick()
     {
-        if (Time.timeScale == 1)
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
+        _contineScreen.Open();
     }
 }
