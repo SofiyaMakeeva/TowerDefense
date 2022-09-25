@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
@@ -8,6 +9,7 @@ public class SpawnPoint : MonoBehaviour
     [SerializeField] private Color _hoverColor;
     [SerializeField] private Vector3 _positionOffset;
 
+    private TMP_Text _textError;
     private GameObject _towerToBuild;
     private Color _startColor;
     private Renderer _renderer;
@@ -23,16 +25,13 @@ public class SpawnPoint : MonoBehaviour
     {
         if (_tower != null)
         {
-            Debug.Log("Cant build there");
             return;
         }
-        
 
         _towerToBuild = BuildManager.Instance.GetTowerToBuild();
 
         if (_towerToBuild == null)
         {
-            Debug.Log("No tower to build");
             return;
         }
 

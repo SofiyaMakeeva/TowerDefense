@@ -10,6 +10,11 @@ public class CameraMovement : MonoBehaviour
 
     private float _height;
     private float _tempHeight;
+    private float _minXPosition = -4.5f;
+    private float _maxXPosition = 4.5f;
+    private float _minZPosition = -15.5f;
+    private float _maxZPosition = -0f;
+
 
     private void Start()
     {
@@ -19,22 +24,22 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && transform.position.z < _maxZPosition)
         {
             transform.Translate(0, 0, 1 * _speed * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && transform.position.z > _minZPosition)
         {
             transform.Translate(0, 0, -1 * _speed * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && transform.position.x > _minXPosition)
         {
             transform.Translate(-1 * _speed * Time.deltaTime, 0, 0);
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && transform.position.x < _maxXPosition)
         {
             transform.Translate(1 * _speed * Time.deltaTime, 0, 0);
         }

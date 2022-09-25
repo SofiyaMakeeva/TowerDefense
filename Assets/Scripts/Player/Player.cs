@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 
     public float Health => _health;
 
-    public event UnityAction<float> HealthChanged;
+    public event UnityAction HealthChanged;
     public event UnityAction<int> MoneyChanged;
     public event UnityAction GameOver;
 
@@ -31,10 +31,11 @@ public class Player : MonoBehaviour
     }
 
     private void Start()
-    {
-        MoneyChanged?.Invoke(_money);
+    { 
         _healthInStart = _health;
         _moneyInStart = _money;
+        HealthChanged?.Invoke();
+        MoneyChanged?.Invoke(_money);
     }
 
     public void ChangeMoneyValue(int value)
@@ -47,14 +48,14 @@ public class Player : MonoBehaviour
     {
         _health = _healthInStart;
         _money = _moneyInStart;
-        HealthChanged?.Invoke(_health);
+        HealthChanged?.Invoke();
         MoneyChanged?.Invoke(_money);
     }
 
     private void TakeAwayHealth(float damage)
     {
         _health -= damage;
-        HealthChanged?.Invoke(_health);
+        HealthChanged?.Invoke();
 
         if (_health <= 0)
         {
