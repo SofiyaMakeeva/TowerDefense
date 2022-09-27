@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class GameOverScreen : Screen
 {
@@ -10,7 +6,17 @@ public class GameOverScreen : Screen
     [SerializeField] private GameObject _gameOverText;
     [SerializeField] private Player _player;
 
-    public event UnityAction RestartButtonClick;
+    public static GameOverScreen GameOver;
+
+    private void Awake()
+    {
+        if (GameOver != null)
+        {
+            return;
+        }
+
+        GameOver = this;
+    }
 
     public override void Close()
     {
@@ -42,6 +48,6 @@ public class GameOverScreen : Screen
 
     protected override void OnPlayButtonClick()
     {
-        RestartButtonClick?.Invoke();
+
     }
 }

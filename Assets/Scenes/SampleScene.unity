@@ -760,6 +760,7 @@ MonoBehaviour:
   _health: 100
   _portal: {fileID: 1878842582}
   _money: 50
+  _spawner: {fileID: 1456007557}
 --- !u!114 &85090280
 MonoBehaviour:
   m_ObjectHideFlags: 0

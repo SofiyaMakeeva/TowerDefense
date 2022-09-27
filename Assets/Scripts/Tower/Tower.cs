@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(Animator))]
 public class Tower : MonoBehaviour
@@ -17,23 +14,23 @@ public class Tower : MonoBehaviour
 
     private Animator _animator;
     private Transform _target;
-    private GameObject[] _enemies;
-    private string _enemyTag = "Enemy";
+    private Enemy[] _enemies;
     private float _distanceToEnemy;
     private float _shotestDistance;
-    private GameObject _nearestEnemy;
+    private Enemy _nearestEnemy;
     private Vector3 _direction;
     private Vector3 _rotation;
     private Quaternion _lookRotation;
     private float _fireCountDown = 0;
+    private string _attackAnimation = "Attack";
 
     public int Price => _price;
-    public GameObject NearestEnemy => _nearestEnemy;
+    public Enemy NearestEnemy => _nearestEnemy;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        InvokeRepeating("UpdateTarget", 0, 0.5f);
+        InvokeRepeating(nameof(UpdateTarget), 0, 0.5f);
     }
 
     private void Update()
@@ -50,7 +47,7 @@ public class Tower : MonoBehaviour
 
         if (_fireCountDown <= 0f)
         {
-            _animator.SetTrigger("Attack");
+            _animator.SetTrigger(_attackAnimation);
             Shoot();
             _fireCountDown = 1f / _fireRate;
         }
@@ -67,7 +64,7 @@ public class Tower : MonoBehaviour
 
     private void UpdateTarget()
     {
-        _enemies = GameObject.FindGameObjectsWithTag(_enemyTag);
+        _enemies = FindObjectsOfType<Enemy>();
         _shotestDistance = Mathf.Infinity;
         _nearestEnemy = null;
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,10 +30,6 @@ public class TowerButton : MonoBehaviour
         {
             BuildManager.Instance.InstallTower(_tower.gameObject);
             _player.ChangeMoneyValue(-_tower.Price);
-        }
-        else
-        {
-            Debug.Log("You dont have enogth money to build this tower");
         }
     }
 }

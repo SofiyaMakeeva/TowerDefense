@@ -11,11 +11,12 @@ public class Spawner : MonoBehaviour
 
     private Wave _currentWave;
     private int _currentWaveNumber = -1;
-    private float _timeAfterLastSpawn;
     private int _spawned;
     private Enemy _enemy;
+    private WaitForSeconds _waitForSeconds;
 
     public event UnityAction AllEnemySpawned;
+    public event UnityAction<Enemy> EnemySpawned;
 
     private void Update()
     {
@@ -24,20 +25,12 @@ public class Spawner : MonoBehaviour
             return;
         }
 
-        _timeAfterLastSpawn += Time.deltaTime;
-
-        if (_timeAfterLastSpawn >= _currentWave.Delay)
-        {
-            InstantiateEnemy();
-            _spawned++;
-            _timeAfterLastSpawn = 0;
-        }
-
         if (_currentWave.Count <= _spawned)
         {
             if (_waves.Count > _currentWaveNumber + 1)
             {
                 AllEnemySpawned?.Invoke();
+                StopCoroutine(CountDownTheTime());
             }
             else if (_waves.Count == _currentWaveNumber + 1 && _currentWave.Count == _spawned)
             {
@@ -46,8 +39,17 @@ public class Spawner : MonoBehaviour
                     _enemy.OnLastEnemySpawn();
                 } 
             }
+        }
+    }
 
-            _currentWave = null;
+    private IEnumerator CountDownTheTime()
+    {
+        while (_currentWave.Count > _spawned)
+        {
+            InstantiateEnemy();
+            _spawned++;
+
+            yield return _waitForSeconds;
         }
     }
 
@@ -55,16 +57,20 @@ public class Spawner : MonoBehaviour
     {
         SetWave(++_currentWaveNumber);
         _spawned = 0;
+        StopCoroutine(CountDownTheTime());
+        StartCoroutine(CountDownTheTime());
     }
 
     private void InstantiateEnemy()
     {
         _enemy = Instantiate(_currentWave.Template, _spawnPosition.position, _spawnPosition.rotation, _spawnPosition).GetComponent<Enemy>();
+        EnemySpawned?.Invoke(_enemy);
     }
 
     private void SetWave(int index)
     {
         _currentWave = _waves[index];
+        _waitForSeconds = new WaitForSeconds(_currentWave.Delay);
     }
 }
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ContineScreen : Screen
@@ -27,6 +25,6 @@ public class ContineScreen : Screen
 
     protected override void OnPlayButtonClick()
     {
-        Close();
+
     }
 }

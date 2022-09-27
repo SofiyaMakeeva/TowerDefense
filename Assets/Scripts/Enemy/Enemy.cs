@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,18 +9,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _damage;
 
     private bool _isLastEnemy = false;
-    private Player _player;
-    private GameOverScreen _gameOverScreen;
 
     public float Damage => _damage;
     public float Speed => _speed;
+    public int Reward => _reward;
     public bool IslastEnemy => _isLastEnemy;
 
-    private void Start()
-    {
-        _player = FindObjectOfType<Player>();
-        _gameOverScreen = FindObjectOfType<GameOverScreen>();
-    }
+    public event UnityAction<Enemy> Died;
 
     public void TakeDamage(int damage)
     {
@@ -30,11 +23,12 @@ public class Enemy : MonoBehaviour
 
         if (_health <= 0)
         {
-            _player.ChangeMoneyValue(_reward);
+            //Player.Gamer.ChangeMoneyValue(_reward);
+            Died?.Invoke(this);
 
             if (_isLastEnemy == true)
             {
-                _gameOverScreen.Open();
+                GameOverScreen.GameOver.Open();
             }
 
             Destroy(gameObject);

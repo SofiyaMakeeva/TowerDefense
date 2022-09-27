@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -11,14 +9,12 @@ public class Game : MonoBehaviour
     private void OnEnable()
     {
         _startScreen.PlayButtonClick += OnPlayButtonClick;
-        _gameOverScreen.RestartButtonClick += OnRestartButtonClick;
         _player.GameOver += OnGameOver;
     }
 
     private void OnDisable()
     {
         _startScreen.PlayButtonClick -= OnPlayButtonClick;
-        _gameOverScreen.RestartButtonClick -= OnRestartButtonClick;
         _player.GameOver -= OnGameOver;
     }
 
@@ -34,16 +30,10 @@ public class Game : MonoBehaviour
         StartGame();
     }
 
-    private void OnRestartButtonClick()
-    {
-        _gameOverScreen.Close();
-        StartGame();
-    }
-
     private void StartGame()
     {
         Time.timeScale = 1;
-        _player.ResetPlayer();
+        _player.ResetData();
     }
 
     private void OnGameOver()

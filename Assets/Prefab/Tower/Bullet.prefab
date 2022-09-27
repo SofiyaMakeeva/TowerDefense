@@ -109,5 +109,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
-  _damage: 10
-  _particleSystem: {fileID: 5784440332037682433, guid: 9f707dc727a553144a96d40a3368b272, type: 3}
+  _damage: 5
