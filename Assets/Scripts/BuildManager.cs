@@ -10,12 +10,14 @@ public class BuildManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
-            return;
+            Destroy(gameObject);
         }
-
-        Instance = this;
+        else
+        {
+            Instance = this;
+        }
     }
 
     public void InstallTower(GameObject tower)

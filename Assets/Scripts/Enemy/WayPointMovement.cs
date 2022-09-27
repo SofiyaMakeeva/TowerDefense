@@ -11,7 +11,7 @@ public class WayPointMovement : MonoBehaviour
 
     private void Start()
     {
-        _path = FindObjectOfType<Path>().transform;
+        _path = Path.EnemyPath.transform;
 
         _points = new Transform[_path.childCount];
 

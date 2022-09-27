@@ -23,6 +23,7 @@ public class Tower : MonoBehaviour
     private Quaternion _lookRotation;
     private float _fireCountDown = 0;
     private string _attackAnimation = "Attack";
+    private float _timeForUpdate = 0.5f;
 
     public int Price => _price;
     public Enemy NearestEnemy => _nearestEnemy;
@@ -30,7 +31,7 @@ public class Tower : MonoBehaviour
     private void Start()
     {
         _animator = GetComponent<Animator>();
-        InvokeRepeating(nameof(UpdateTarget), 0, 0.5f);
+        InvokeRepeating(nameof(UpdateTarget), 0, _timeForUpdate);
     }
 
     private void Update()

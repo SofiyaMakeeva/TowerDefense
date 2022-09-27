@@ -22,12 +22,14 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        if (Gamer != null)
+        if (Gamer != null && Gamer != this)
         {
-            return;
+            Destroy(gameObject);
         }
-
-        Gamer = this;
+        else
+        {
+            Gamer = this;
+        }
     }
 
     private void OnEnable()

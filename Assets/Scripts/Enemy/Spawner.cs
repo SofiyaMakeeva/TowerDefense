@@ -14,6 +14,7 @@ public class Spawner : MonoBehaviour
     private int _spawned;
     private Enemy _enemy;
     private WaitForSeconds _waitForSeconds;
+    private Coroutine _spawnEnemy;
 
     public event UnityAction AllEnemySpawned;
     public event UnityAction<Enemy> EnemySpawned;
@@ -27,10 +28,14 @@ public class Spawner : MonoBehaviour
 
         if (_currentWave.Count <= _spawned)
         {
+            if (_spawnEnemy != null)
+            {
+                StopCoroutine(_spawnEnemy);
+            }
+
             if (_waves.Count > _currentWaveNumber + 1)
             {
                 AllEnemySpawned?.Invoke();
-                StopCoroutine(CountDownTheTime());
             }
             else if (_waves.Count == _currentWaveNumber + 1 && _currentWave.Count == _spawned)
             {
@@ -57,8 +62,7 @@ public class Spawner : MonoBehaviour
     {
         SetWave(++_currentWaveNumber);
         _spawned = 0;
-        StopCoroutine(CountDownTheTime());
-        StartCoroutine(CountDownTheTime());
+        _spawnEnemy = StartCoroutine(CountDownTheTime());
     }
 
     private void InstantiateEnemy()

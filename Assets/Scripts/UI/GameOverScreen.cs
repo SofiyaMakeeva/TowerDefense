@@ -10,12 +10,14 @@ public class GameOverScreen : Screen
 
     private void Awake()
     {
-        if (GameOver != null)
+        if (GameOver != null && GameOver != this)
         {
-            return;
+            Destroy(gameObject);
         }
-
-        GameOver = this;
+        else
+        {
+            GameOver = this;
+        }
     }
 
     public override void Close()

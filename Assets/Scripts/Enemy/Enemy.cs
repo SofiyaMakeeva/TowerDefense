@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
 
         if (_health <= 0)
         {
-            //Player.Gamer.ChangeMoneyValue(_reward);
             Died?.Invoke(this);
 
             if (_isLastEnemy == true)
